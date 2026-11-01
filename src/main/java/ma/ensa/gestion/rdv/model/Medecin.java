@@ -2,7 +2,6 @@ package ma.ensa.gestion.rdv.model;
 
 import jakarta.persistence.*;
 
-import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.List;
 

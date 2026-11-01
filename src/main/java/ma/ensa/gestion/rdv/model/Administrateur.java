@@ -2,7 +2,6 @@ package ma.ensa.gestion.rdv.model;
 
 import jakarta.persistence.Entity;
 
-import javax.management.relation.Role;
 
 @Entity
 public class Administrateur extends Utilisateur {

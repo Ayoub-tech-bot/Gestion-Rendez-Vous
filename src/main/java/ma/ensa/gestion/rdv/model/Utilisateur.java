@@ -2,8 +2,6 @@ package ma.ensa.gestion.rdv.model;
 
 import jakarta.persistence.*;
 
-import javax.management.relation.Role;
-
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract  class  Utilisateur {
