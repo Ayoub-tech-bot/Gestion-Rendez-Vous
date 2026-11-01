@@ -120,7 +120,7 @@ Entités Hibernate :
 
 - **Utilisateur** (classe mère) : id, nom, prénom, email (unique), motDePasse, rôle
   - **Patient** : téléphone, dateNaissance
-  - **Médecin** : cabinet, spécialité
+  - **Médecin** : spécialité
   - **Administrateur**
 - **Spécialité** : id, nom, description
 - **RendezVous** : id, date, heureDebut, heureFin, statut, motif, patient, médecin
