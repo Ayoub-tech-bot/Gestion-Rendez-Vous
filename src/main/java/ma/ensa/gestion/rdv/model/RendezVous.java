@@ -11,7 +11,7 @@ public class RendezVous {
     private long id;
     private LocalDate date;
     @Enumerated(EnumType.STRING)
-    private StatusRendezVous status;
+    private StatutRendezVous status;
     private String motif;
 
     @ManyToOne
@@ -24,7 +24,7 @@ public class RendezVous {
     public RendezVous() {
     }
 
-    public RendezVous(long id, LocalDate date, StatusRendezVous status, String motif) {
+    public RendezVous(long id, LocalDate date, StatutRendezVous status, String motif) {
         this.id = id;
         this.date = date;
         this.status = status;
@@ -47,11 +47,11 @@ public class RendezVous {
         this.date = date;
     }
 
-    public StatusRendezVous getStatus() {
+    public StatutRendezVous getStatus() {
         return status;
     }
 
-    public void setStatus(StatusRendezVous status) {
+    public void setStatus(StatutRendezVous status) {
         this.status = status;
     }
 
