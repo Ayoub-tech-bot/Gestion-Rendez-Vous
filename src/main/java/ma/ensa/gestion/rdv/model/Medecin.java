@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Medecin extends Utilisateur{
+public class Medecin extends Utilisateur {
 
     @ManyToOne
     @JoinColumn(name = "specialite_id")
@@ -19,9 +19,26 @@ public class Medecin extends Utilisateur{
 
     }
 
-    public Medecin(long id, String nom, String prenom, String email, String motDePasse, Role role, Specialite specialite, List<RendezVous> rendezVous) {
+    public Medecin(long id, String nom, String prenom, String email, String motDePasse, Role role,
+            Specialite specialite, List<RendezVous> rendezVous) {
         super(id, nom, prenom, email, motDePasse, role);
         this.specialite = specialite;
+        this.rendezVous = rendezVous;
+    }
+
+    public Specialite getSpecialite() {
+        return specialite;
+    }
+
+    public void setSpecialite(Specialite specialite) {
+        this.specialite = specialite;
+    }
+
+    public List<RendezVous> getRendezVous() {
+        return rendezVous;
+    }
+
+    public void setRendezVous(List<RendezVous> rendezVous) {
         this.rendezVous = rendezVous;
     }
 }
