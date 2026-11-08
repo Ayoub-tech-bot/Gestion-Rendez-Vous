@@ -26,8 +26,6 @@
         <mapping class="ma.ensa.gestion.rdv.model.RendezVous" />
         <mapping class="ma.ensa.gestion.rdv.model.Specialite" />
         <mapping class="ma.ensa.gestion.rdv.model.Utilisateur" />
-        <mapping class="ma.ensa.gestion.rdv.model.Role" />
-        <mapping class="ma.ensa.gestion.rdv.model.StatutRendezVous" />
 
     </session-factory>
 </hibernate-configuration>
