@@ -10,7 +10,7 @@
         <property name="connection.password"></property>
 
         <!-- SQL Dialect -->
-        <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <!-- Echo all executed SQL to stdout (super helpful for debugging!) -->
         <property name="show_sql">true</property>

@@ -16,4 +16,6 @@ public interface UtilisateurService {
     Optional<Utilisateur> trouverParEmail(String email);
 
     boolean emailExiste(String email);
+
+    java.util.List<Patient> listerPatients();
 }

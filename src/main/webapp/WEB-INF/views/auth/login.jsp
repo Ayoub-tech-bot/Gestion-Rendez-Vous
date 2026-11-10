@@ -1,43 +1,44 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Connexion - Gestion des Rendez-Vous</title>
+    <title>Connexion</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-    <h2>Connexion</h2>
+    <div class="container mt-5" style="max-width: 450px;">
+        <h2 class="text-center mb-4">Connexion</h2>
 
-    <% if ("true".equals(request.getParameter("registered"))) { %>
-        <p>Inscription réussie ! Vous pouvez maintenant vous connecter.</p>
-    <% } %>
+        <% if ("true".equals(request.getParameter("registered"))) { %>
+            <div class="alert alert-success">Inscription réussie ! Vous pouvez vous connecter.</div>
+        <% } %>
 
-    <% String erreur = (String) request.getAttribute("erreur");
-       if (erreur != null) { %>
-        <p><%= erreur %></p>
-    <% } %>
+        <% String erreur = (String) request.getAttribute("erreur");
+           if (erreur != null) { %>
+            <div class="alert alert-danger"><%= erreur %></div>
+        <% } %>
 
-    <form action="<%= request.getContextPath() %>/login" method="post">
-        <div>
-            <label for="email">Email :</label><br>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <br>
-        <div>
-            <label for="motDePasse">Mot de passe :</label><br>
-            <input type="password" id="motDePasse" name="motDePasse" required>
-        </div>
-        <br>
-        <button type="submit">Se connecter</button>
-    </form>
+        <form action="<%= request.getContextPath() %>/login" method="post" class="border p-4 bg-light">
+            <div class="mb-3">
+                <label>Email :</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
 
-    <hr>
+            <div class="mb-3">
+                <label>Mot de passe :</label>
+                <input type="password" name="motDePasse" class="form-control" required>
+            </div>
 
-    <p>
-        Pas encore de compte ?
-        <a href="<%= request.getContextPath() %>/register">Créer un compte patient</a>
-    </p>
+            <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+        </form>
+
+        <p class="text-center mt-3">
+            Pas encore de compte ?
+            <a href="<%= request.getContextPath() %>/register">Créer un compte patient</a>
+        </p>
+    </div>
 
 </body>
 </html>

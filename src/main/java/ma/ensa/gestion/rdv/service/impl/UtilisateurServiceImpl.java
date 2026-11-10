@@ -69,4 +69,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public boolean emailExiste(String email) {
         return utilisateurDao.findByEmail(email.trim()).isPresent();
     }
+
+    @Override
+    public java.util.List<Patient> listerPatients() {
+        return patientDao.findAll();
+    }
 }

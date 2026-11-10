@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
             throws IOException {
         String contextPath = req.getContextPath();
         switch (role) {
-            case ADMINISTRATEUR -> resp.sendRedirect(contextPath + "/admin/specialites");
+            case ADMINISTRATEUR -> resp.sendRedirect(contextPath + "/admin/medecins");
             case MEDICINE -> resp.sendRedirect(contextPath + "/medecin/rendez-vous");
             case PATIENT -> resp.sendRedirect(contextPath + "/patient/rendez-vous");
         }

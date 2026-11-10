@@ -8,11 +8,11 @@ import org.hibernate.Transaction;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class GenericDaoImpl<T, ID> implements GenericDao<T, ID> {
+public class GenericDaoImpl<T, ID> implements GenericDao<T, ID> {
 
     protected final Class<T> entityClass;
 
-    protected GenericDaoImpl(Class<T> entityClass) {
+    public GenericDaoImpl(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
