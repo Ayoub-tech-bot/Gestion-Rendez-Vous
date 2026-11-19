@@ -133,7 +133,7 @@ Relations :
 
 ## Technique
 
-- Java, Servlets + JSP/JSTL, architecture MVC
+- Java, Servlets + JSP/JSTL avec Bootstrap pour le style, architecture MVC
 - Hibernate (annotations), tables générées automatiquement
 - MySQL, Tomcat, Maven
 - Mots de passe hachés (BCrypt), filtre qui contrôle l'accès selon le rôle
