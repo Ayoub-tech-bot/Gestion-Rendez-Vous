@@ -58,7 +58,7 @@
             <thead class="table-light">
                 <tr>
                     <th>ID</th>
-                    <th>Date</th>
+                    <th>Date & Créneau</th>
                     <th>Patient</th>
                     <th>Médecin</th>
                     <th>Spécialité</th>
@@ -75,7 +75,12 @@
                 <c:forEach items="${rendezVousList}" var="r">
                     <tr>
                         <td>${r.id}</td>
-                        <td>${r.date}</td>
+                        <td>
+                            <strong>${r.date}</strong>
+                            <c:if test="${not empty r.heureDebut}">
+                                <br><small class="text-primary font-monospace">${r.heureDebut} - ${r.heureFin}</small>
+                            </c:if>
+                        </td>
                         <td>${r.patient.prenom} ${r.patient.nom}</td>
                         <td>Dr. ${r.medecin.prenom} ${r.medecin.nom}</td>
                         <td>${r.medecin.specialite.nom}</td>

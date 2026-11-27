@@ -1,6 +1,7 @@
 package ma.ensa.gestion.rdv.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,6 +18,8 @@ public class RendezVous {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private LocalDate date;
+    private LocalTime heureDebut;
+    private LocalTime heureFin;
     @Enumerated(EnumType.STRING)
     private StatutRendezVous status;
     private String motif;
@@ -38,6 +41,15 @@ public class RendezVous {
         this.motif = motif;
     }
 
+    public RendezVous(long id, LocalDate date, LocalTime heureDebut, LocalTime heureFin, StatutRendezVous status, String motif) {
+        this.id = id;
+        this.date = date;
+        this.heureDebut = heureDebut;
+        this.heureFin = heureFin;
+        this.status = status;
+        this.motif = motif;
+    }
+
     public long getId() {
         return id;
     }
@@ -52,6 +64,22 @@ public class RendezVous {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalTime getHeureDebut() {
+        return heureDebut;
+    }
+
+    public void setHeureDebut(LocalTime heureDebut) {
+        this.heureDebut = heureDebut;
+    }
+
+    public LocalTime getHeureFin() {
+        return heureFin;
+    }
+
+    public void setHeureFin(LocalTime heureFin) {
+        this.heureFin = heureFin;
     }
 
     public StatutRendezVous getStatus() {
@@ -75,6 +103,8 @@ public class RendezVous {
         return "RendezVous{" +
                 "id=" + id +
                 ", date=" + date +
+                ", heureDebut=" + heureDebut +
+                ", heureFin=" + heureFin +
                 ", status=" + status +
                 ", motif='" + motif + '\'' +
                 '}';

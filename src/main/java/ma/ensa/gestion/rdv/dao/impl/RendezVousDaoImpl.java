@@ -19,7 +19,7 @@ public class RendezVousDaoImpl extends GenericDaoImpl<RendezVous, Long> implemen
     @Override
     public List<RendezVous> findByPatient(Long patientId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "FROM RendezVous r WHERE r.patient.id = :patientId ORDER BY r.date DESC";
+            String hql = "FROM RendezVous r WHERE r.patient.id = :patientId ORDER BY r.date DESC, r.heureDebut ASC";
             return session.createQuery(hql, RendezVous.class)
                     .setParameter("patientId", patientId)
                     .list();
@@ -31,7 +31,7 @@ public class RendezVousDaoImpl extends GenericDaoImpl<RendezVous, Long> implemen
     @Override
     public List<RendezVous> findByMedecin(Long medecinId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "FROM RendezVous r WHERE r.medecin.id = :medecinId ORDER BY r.date DESC";
+            String hql = "FROM RendezVous r WHERE r.medecin.id = :medecinId ORDER BY r.date DESC, r.heureDebut ASC";
             return session.createQuery(hql, RendezVous.class)
                     .setParameter("medecinId", medecinId)
                     .list();
@@ -59,7 +59,8 @@ public class RendezVousDaoImpl extends GenericDaoImpl<RendezVous, Long> implemen
             String hql = "FROM RendezVous r " +
                          "WHERE r.medecin.id = :medecinId " +
                          "AND r.date = :date " +
-                         "AND r.status IN (:enAttente, :confirme)";
+                         "AND r.status IN (:enAttente, :confirme) " +
+                         "ORDER BY r.heureDebut ASC";
             return session.createQuery(hql, RendezVous.class)
                     .setParameter("medecinId", medecinId)
                     .setParameter("date", date)
@@ -68,6 +69,25 @@ public class RendezVousDaoImpl extends GenericDaoImpl<RendezVous, Long> implemen
                     .list();
         } catch (Exception e) {
             throw new RuntimeException("Erreur lors de la recherche des rendez-vous actifs: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public List<RendezVous> findActiveByPatientAndDate(Long patientId, LocalDate date) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "FROM RendezVous r " +
+                         "WHERE r.patient.id = :patientId " +
+                         "AND r.date = :date " +
+                         "AND r.status IN (:enAttente, :confirme) " +
+                         "ORDER BY r.heureDebut ASC";
+            return session.createQuery(hql, RendezVous.class)
+                    .setParameter("patientId", patientId)
+                    .setParameter("date", date)
+                    .setParameter("enAttente", StatutRendezVous.EN_ATTENTE)
+                    .setParameter("confirme", StatutRendezVous.CONFIRME)
+                    .list();
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la recherche des rendez-vous actifs du patient: " + e.getMessage(), e);
         }
     }
 
@@ -97,7 +117,7 @@ public class RendezVousDaoImpl extends GenericDaoImpl<RendezVous, Long> implemen
             if (statut != null) {
                 hql.append(" AND r.status = :statut");
             }
-            hql.append(" ORDER BY r.date DESC");
+            hql.append(" ORDER BY r.date DESC, r.heureDebut ASC");
 
             Query<RendezVous> query = session.createQuery(hql.toString(), RendezVous.class);
             if (medecinId != null) {

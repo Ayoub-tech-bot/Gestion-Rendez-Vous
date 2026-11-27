@@ -54,7 +54,7 @@
             <thead class="table-light">
                 <tr>
                     <th>ID</th>
-                    <th>Date</th>
+                    <th>Date & Créneau</th>
                     <th>Patient</th>
                     <th>Téléphone</th>
                     <th>Motif</th>
@@ -71,7 +71,12 @@
                 <c:forEach items="${rendezVousList}" var="r">
                     <tr>
                         <td>${r.id}</td>
-                        <td>${r.date}</td>
+                        <td>
+                            <strong>${r.date}</strong>
+                            <c:if test="${not empty r.heureDebut}">
+                                <br><small class="text-primary font-monospace">${r.heureDebut} - ${r.heureFin}</small>
+                            </c:if>
+                        </td>
                         <td>${r.patient.prenom} ${r.patient.nom}</td>
                         <td>${not empty r.patient.telephone ? r.patient.telephone : '-'}</td>
                         <td>${r.motif}</td>

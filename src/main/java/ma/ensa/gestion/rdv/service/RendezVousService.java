@@ -1,6 +1,7 @@
 package ma.ensa.gestion.rdv.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,8 @@ public interface RendezVousService {
     RendezVous annulerRendezVous(Long rdvId, Long patientId);
 
     RendezVous reporterRendezVous(Long rdvId, Long patientId, LocalDate nouvelleDate);
+
+    RendezVous reporterRendezVous(Long rdvId, Long patientId, LocalDate nouvelleDate, LocalTime nouvelleHeure);
 
     RendezVous confirmerRendezVous(Long rdvId, Long medecinId);
 
@@ -32,4 +35,6 @@ public interface RendezVousService {
     List<RendezVous> listerParMedecinEtStatut(Long medecinId, StatutRendezVous statut);
 
     List<RendezVous> listerAvecFiltres(Long medecinId, LocalDate date, StatutRendezVous statut);
+
+    List<LocalTime> getCreneauxDisponibles(Long medecinId, LocalDate date);
 }

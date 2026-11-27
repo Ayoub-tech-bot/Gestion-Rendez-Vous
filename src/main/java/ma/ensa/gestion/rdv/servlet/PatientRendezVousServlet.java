@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -57,7 +58,13 @@ public class PatientRendezVousServlet extends HttpServlet {
 
         if ("reporter".equals(action) && idStr != null) {
             rendezVousService.trouverParId(Long.parseLong(idStr))
-                    .ifPresent(r -> req.setAttribute("rdvAReporter", r));
+                    .ifPresent(r -> {
+                        req.setAttribute("rdvAReporter", r);
+                        String dateStr = req.getParameter("date");
+                        LocalDate reportDate = (dateStr != null && !dateStr.isBlank()) ? LocalDate.parse(dateStr) : r.getDate();
+                        req.setAttribute("creneauxDisponiblesReport",
+                                rendezVousService.getCreneauxDisponibles(r.getMedecin().getId(), reportDate));
+                    });
         }
 
         String specialiteIdStr = req.getParameter("specialiteId");
@@ -65,6 +72,17 @@ public class PatientRendezVousServlet extends HttpServlet {
             req.setAttribute("medecins", medecinService.listerParSpecialite(Long.parseLong(specialiteIdStr)));
         } else {
             req.setAttribute("medecins", medecinService.listerTout());
+        }
+
+        // Si le patient a sélectionné un médecin et une date, calculer les créneaux libres (Scénario S5)
+        String medecinIdChoisi = req.getParameter("medecinId");
+        String dateChoisie = req.getParameter("date");
+        if (medecinIdChoisi != null && !medecinIdChoisi.isBlank() && dateChoisie != null && !dateChoisie.isBlank()) {
+            try {
+                Long mId = Long.parseLong(medecinIdChoisi);
+                LocalDate d = LocalDate.parse(dateChoisie);
+                req.setAttribute("creneauxDisponibles", rendezVousService.getCreneauxDisponibles(mId, d));
+            } catch (Exception ignored) {}
         }
 
         req.setAttribute("specialites", specialiteService.listerTout());
@@ -82,13 +100,17 @@ public class PatientRendezVousServlet extends HttpServlet {
             if ("reporter".equals(action)) {
                 Long rdvId = Long.parseLong(req.getParameter("id"));
                 LocalDate nouvelleDate = LocalDate.parse(req.getParameter("date"));
+                String heureStr = req.getParameter("heureDebut");
+                LocalTime nouvelleHeure = (heureStr != null && !heureStr.isBlank()) ? LocalTime.parse(heureStr) : null;
 
-                rendezVousService.reporterRendezVous(rdvId, user.getId(), nouvelleDate);
+                rendezVousService.reporterRendezVous(rdvId, user.getId(), nouvelleDate, nouvelleHeure);
                 String msg = URLEncoder.encode("Rendez-vous reporté avec succès.", StandardCharsets.UTF_8);
                 resp.sendRedirect(req.getContextPath() + "/patient/rendez-vous?success=" + msg);
             } else {
                 Long medecinId = Long.parseLong(req.getParameter("medecinId"));
                 LocalDate date = LocalDate.parse(req.getParameter("date"));
+                String heureStr = req.getParameter("heureDebut");
+                LocalTime heureDebut = (heureStr != null && !heureStr.isBlank()) ? LocalTime.parse(heureStr) : null;
                 String motif = req.getParameter("motif");
 
                 Medecin medecin = medecinService.trouverParId(medecinId)
@@ -101,6 +123,7 @@ public class PatientRendezVousServlet extends HttpServlet {
                 rdv.setPatient(patient);
                 rdv.setMedecin(medecin);
                 rdv.setDate(date);
+                rdv.setHeureDebut(heureDebut);
                 rdv.setMotif(motif);
 
                 rendezVousService.prendreRendezVous(rdv);

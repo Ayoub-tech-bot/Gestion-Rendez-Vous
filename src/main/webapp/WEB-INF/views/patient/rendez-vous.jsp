@@ -35,9 +35,37 @@
                         <input type="hidden" name="action" value="reporter">
                         <input type="hidden" name="id" value="${rdvAReporter.id}">
 
-                        <div class="mb-3">
-                            <label>Nouvelle Date (Lundi au Vendredi) :</label>
-                            <input type="date" name="date" class="form-control" value="${rdvAReporter.date}" required>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>Nouvelle Date (Lundi au Vendredi) :</label>
+                                <input type="date" name="date" class="form-control" value="${rdvAReporter.date}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Nouveau Créneau Horaire (30 min) :</label>
+                                <select name="heureDebut" class="form-select" required>
+                                    <option value="">-- Choisir un créneau --</option>
+                                    <option value="08:00" <c:if test="${rdvAReporter.heureDebut == '08:00'}">selected</c:if>>08:00 - 08:30</option>
+                                    <option value="08:30" <c:if test="${rdvAReporter.heureDebut == '08:30'}">selected</c:if>>08:30 - 09:00</option>
+                                    <option value="09:00" <c:if test="${rdvAReporter.heureDebut == '09:00'}">selected</c:if>>09:00 - 09:30</option>
+                                    <option value="09:30" <c:if test="${rdvAReporter.heureDebut == '09:30'}">selected</c:if>>09:30 - 10:00</option>
+                                    <option value="10:00" <c:if test="${rdvAReporter.heureDebut == '10:00'}">selected</c:if>>10:00 - 10:30</option>
+                                    <option value="10:30" <c:if test="${rdvAReporter.heureDebut == '10:30'}">selected</c:if>>10:30 - 11:00</option>
+                                    <option value="11:00" <c:if test="${rdvAReporter.heureDebut == '11:00'}">selected</c:if>>11:00 - 11:30</option>
+                                    <option value="11:30" <c:if test="${rdvAReporter.heureDebut == '11:30'}">selected</c:if>>11:30 - 12:00</option>
+                                    <option value="12:00" <c:if test="${rdvAReporter.heureDebut == '12:00'}">selected</c:if>>12:00 - 12:30</option>
+                                    <option value="12:30" <c:if test="${rdvAReporter.heureDebut == '12:30'}">selected</c:if>>12:30 - 13:00</option>
+                                    <option value="13:00" <c:if test="${rdvAReporter.heureDebut == '13:00'}">selected</c:if>>13:00 - 13:30</option>
+                                    <option value="13:30" <c:if test="${rdvAReporter.heureDebut == '13:30'}">selected</c:if>>13:30 - 14:00</option>
+                                    <option value="14:00" <c:if test="${rdvAReporter.heureDebut == '14:00'}">selected</c:if>>14:00 - 14:30</option>
+                                    <option value="14:30" <c:if test="${rdvAReporter.heureDebut == '14:30'}">selected</c:if>>14:30 - 15:00</option>
+                                    <option value="15:00" <c:if test="${rdvAReporter.heureDebut == '15:00'}">selected</c:if>>15:00 - 15:30</option>
+                                    <option value="15:30" <c:if test="${rdvAReporter.heureDebut == '15:30'}">selected</c:if>>15:30 - 16:00</option>
+                                    <option value="16:00" <c:if test="${rdvAReporter.heureDebut == '16:00'}">selected</c:if>>16:00 - 16:30</option>
+                                    <option value="16:30" <c:if test="${rdvAReporter.heureDebut == '16:30'}">selected</c:if>>16:30 - 17:00</option>
+                                    <option value="17:00" <c:if test="${rdvAReporter.heureDebut == '17:00'}">selected</c:if>>17:00 - 17:30</option>
+                                    <option value="17:30" <c:if test="${rdvAReporter.heureDebut == '17:30'}">selected</c:if>>17:30 - 18:00</option>
+                                </select>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Confirmer le report</button>
@@ -68,7 +96,7 @@
                         <input type="hidden" name="action" value="creer">
 
                         <div class="row mb-2">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label>Médecin :</label>
                                 <select name="medecinId" class="form-select" required>
                                     <option value="">-- Choisir un médecin --</option>
@@ -79,9 +107,35 @@
                                     </c:forEach>
                                 </select>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label>Date souhaitée (Lundi au Vendredi) :</label>
                                 <input type="date" name="date" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Créneau horaire (30 min) :</label>
+                                <select name="heureDebut" class="form-select" required>
+                                    <option value="">-- Choisir un créneau --</option>
+                                    <option value="08:00">08:00 - 08:30</option>
+                                    <option value="08:30">08:30 - 09:00</option>
+                                    <option value="09:00">09:00 - 09:30</option>
+                                    <option value="09:30">09:30 - 10:00</option>
+                                    <option value="10:00">10:00 - 10:30</option>
+                                    <option value="10:30">10:30 - 11:00</option>
+                                    <option value="11:00">11:00 - 11:30</option>
+                                    <option value="11:30">11:30 - 12:00</option>
+                                    <option value="12:00">12:00 - 12:30</option>
+                                    <option value="12:30">12:30 - 13:00</option>
+                                    <option value="13:00">13:00 - 13:30</option>
+                                    <option value="13:30">13:30 - 14:00</option>
+                                    <option value="14:00">14:00 - 14:30</option>
+                                    <option value="14:30">14:30 - 15:00</option>
+                                    <option value="15:00">15:00 - 15:30</option>
+                                    <option value="15:30">15:30 - 16:00</option>
+                                    <option value="16:00">16:00 - 16:30</option>
+                                    <option value="16:30">16:30 - 17:00</option>
+                                    <option value="17:00">17:00 - 17:30</option>
+                                    <option value="17:30">17:30 - 18:00</option>
+                                </select>
                             </div>
                         </div>
 
@@ -102,7 +156,7 @@
             <thead class="table-light">
                 <tr>
                     <th>ID</th>
-                    <th>Date</th>
+                    <th>Date & Créneau</th>
                     <th>Médecin</th>
                     <th>Spécialité</th>
                     <th>Motif</th>
@@ -119,7 +173,12 @@
                 <c:forEach items="${mesRendezVous}" var="r">
                     <tr>
                         <td>${r.id}</td>
-                        <td>${r.date}</td>
+                        <td>
+                            <strong>${r.date}</strong>
+                            <c:if test="${not empty r.heureDebut}">
+                                <br><small class="text-primary font-monospace">${r.heureDebut} - ${r.heureFin}</small>
+                            </c:if>
+                        </td>
                         <td>Dr. ${r.medecin.prenom} ${r.medecin.nom}</td>
                         <td>${r.medecin.specialite.nom}</td>
                         <td>${r.motif}</td>
